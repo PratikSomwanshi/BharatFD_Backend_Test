@@ -3,8 +3,15 @@ const cors = require("cors");
 const app = express();
 
 const v1Routes = require("./routes/v1");
+const morgan = require("morgan");
 
-app.use(cors());
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET,POST,PUT,DELETE",
+    })
+);
+app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
