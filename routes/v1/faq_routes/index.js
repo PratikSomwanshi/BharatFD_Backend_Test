@@ -1,6 +1,6 @@
 const express = require("express");
 const faqController = require("../../../controllers/faq_controller");
-const { faqMiddleware } = require("../middlewares/faqMiddleware");
+const { faqMiddleware } = require("../../../middlewares/faq_middleware");
 
 const router = express.Router();
 
