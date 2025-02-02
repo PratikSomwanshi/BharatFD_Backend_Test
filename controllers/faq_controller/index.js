@@ -1,4 +1,4 @@
-const faqService = require("../services/faqService");
+const faqService = require("../../services/faq_service");
 const { createResponse } = require("../../utils/response");
 
 const getAllFAQs = async (req, res) => {
