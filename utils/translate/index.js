@@ -6,7 +6,7 @@ const {
 const translateText = async (text, lang) => {
     try {
         const url =
-            "https://google-translate113.p.rapidapi.com/api/v1/translator/text";
+            "https://deep-translate1.p.rapidapi.com/language/translate/v2";
         const options = {
             method: "POST",
             headers: {
@@ -15,9 +15,9 @@ const translateText = async (text, lang) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                from: "en",
-                to: lang,
-                text,
+                q: text,
+                source: "en",
+                target: lang,
             }),
         };
 
@@ -28,7 +28,9 @@ const translateText = async (text, lang) => {
         }
         const result = await res.json();
 
-        return result.trans;
+        console.log(result);
+
+        return result.data.translations.translatedText;
     } catch (error) {
         console.error("Translation error:", error);
         return text;
