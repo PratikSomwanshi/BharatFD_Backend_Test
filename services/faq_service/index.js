@@ -12,8 +12,10 @@ const getAllFAQs = async (lang = "en") => {
     }
 
     const cachedFAQs = await cache.get(`faqs_${lang}`);
+
     if (cachedFAQs) {
-        return JSON.parse(cachedFAQs);
+        console.log("Cache hit inner ", typeof cachedFAQs);
+        return cachedFAQs;
     }
 
     const faqs = await prisma.fAQ.findMany();
@@ -23,7 +25,7 @@ const getAllFAQs = async (lang = "en") => {
         answer: faq[`answer_${lang}`] || faq.answer,
     }));
 
-    await cache.set(`faqs_${lang}`, JSON.stringify(translatedFAQs));
+    await cache.set(`faqs_${lang}`, translatedFAQs);
     return translatedFAQs;
 };
 
@@ -75,12 +77,12 @@ const updateFAQ = async (id, question, answer) => {
 
 const getSingleFaq = async (id) => {
     const cachedFAQ = await cache.get(`faqs_${id}`);
-    if (cachedFAQ) return JSON.parse(cachedFAQ);
+    if (cachedFAQ) return cachedFAQ;
 
     const faq = await prisma.fAQ.findUnique({ where: { id: parseInt(id) } });
     if (!faq) throw new Error("FAQ not found");
 
-    await cache.set(`faqs_${id}`, JSON.stringify(faq));
+    await cache.set(`faqs_${id}`, faq);
     return faq;
 };
 

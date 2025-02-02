@@ -10,16 +10,17 @@ const redis = new Redis({
 
 const cache = {
     get: async (key) => {
-        return await redis.get(key, (err, result) => {
-            if (err) {
-                console.error(err);
-            } else {
-                return JSON.parse(result);
-            }
-        });
+        await redis
+            .get(key)
+            .then((data) => {
+                return JSON.parse(data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     },
     set: async (key, value) => {
-        return await redis.set(key, JSON.stringify(value));
+        return await redis.set(key, JSON.stringify(value), "EX", 3600);
     },
     delete: async (key) => {
         return await redis.del(key);
