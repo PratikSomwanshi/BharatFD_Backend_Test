@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
-const { translateText } = require("../utils/translate");
-const { cache } = require("../utils/cache");
+const { translateText } = require("../../utils/translate");
+const { cache } = require("../../utils/cache");
 
 const prisma = new PrismaClient();
 
