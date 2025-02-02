@@ -1,5 +1,5 @@
 const express = require("express");
-const faqController = require("../controllers/faqController");
+const faqController = require("../../../controllers/faq_controller");
 const { faqMiddleware } = require("../middlewares/faqMiddleware");
 
 const router = express.Router();
